@@ -12,11 +12,11 @@ property iterm_opens_quietly : false
 
 -- Handlers
 on new_window()
-  tell application "iTerm" to create window with default profile
+  tell application "iTerm" to create window with profile "simple"
 end new_window
 
 on new_tab()
-  tell application "iTerm" to tell the first window to create tab with default profile
+  tell application "iTerm" to tell the first window to create tab with profile "simple"
 end new_tab
 
 on call_forward()
@@ -83,6 +83,7 @@ on alfred_script(query)
   -- "with timeout" does not work with "repeat", so use a delay (0.01 * 500 means a timeout of 5 seconds)
   repeat 500 times
     if has_windows() then
+      delay 0.5
       send_text(query)
       call_forward()
       exit repeat
